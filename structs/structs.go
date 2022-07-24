@@ -1,6 +1,8 @@
 package structs
 
+import "image"
 
-type Pixel struct {
-    r, g, b, a uint32
+type StructRGBA struct {
+	Rgba       *image.RGBA
+	MaxX, MaxY int
 }
