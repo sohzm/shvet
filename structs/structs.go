@@ -1,6 +1,6 @@
 package structs
 
 
-type pixel struct {
+type Pixel struct {
     r, g, b, a uint32
 }

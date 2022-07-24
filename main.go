@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+    "shvet/structs"
 )
 
 func main() {
-    fmt.Printf("Hello World!\n")
+    hi := structs.pixel{}
+    fmt.Printf("%v\n", hi)
 }
