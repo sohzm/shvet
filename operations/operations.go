@@ -97,7 +97,6 @@ func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 		r, g, b, _ := toUint8(structRGBA.Rgba.At(val[0], val[1]).RGBA())
 		exValues[i] = [3]uint8{r, g, b}
 		//exValues[i] = data.ImpPoints[i]
-		fmt.Println(exValues[i])
 	}
 
 	for i := 0; i < structRGBA.MaxX; i++ {

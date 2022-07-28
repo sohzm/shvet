@@ -34,7 +34,7 @@ func main() {
 			return
 
 		case "gruvbox2":
-			if (len(args) == i + 2) {
+			if len(args) == i+2 {
 				err = handlers.HandleGruvbox2("50", args[i+1])
 			} else {
 				err = handlers.HandleGruvbox2(args[i+1], args[i+2])
@@ -52,7 +52,7 @@ func main() {
 			return
 
 		case "nord2":
-			if (len(args) == i + 2) {
+			if len(args) == i+2 {
 				err = handlers.HandleNord2("50", args[i+1])
 			} else {
 				err = handlers.HandleNord2(args[i+1], args[i+2])
@@ -70,10 +70,46 @@ func main() {
 			return
 
 		case "tokyonight2":
-			if (len(args) == i + 2) {
+			if len(args) == i+2 {
 				err = handlers.HandleTokyonight2("50", args[i+1])
 			} else {
 				err = handlers.HandleTokyonight2(args[i+1], args[i+2])
+			}
+			if err != nil {
+				fmt.Printf("Error: %v", err.Error())
+			}
+			return
+
+		case "dracula":
+			err = handlers.HandleDracula(args[i+1])
+			if err != nil {
+				fmt.Printf("Error: %v", err.Error())
+			}
+			return
+
+		case "dracula2":
+			if len(args) == i+2 {
+				err = handlers.HandleDracula2("50", args[i+1])
+			} else {
+				err = handlers.HandleDracula2(args[i+1], args[i+2])
+			}
+			if err != nil {
+				fmt.Printf("Error: %v", err.Error())
+			}
+			return
+
+		case "solarized":
+			err = handlers.HandleSolarized(args[i+1])
+			if err != nil {
+				fmt.Printf("Error: %v", err.Error())
+			}
+			return
+
+		case "solarized2":
+			if len(args) == i+2 {
+				err = handlers.HandleSolarized2("50", args[i+1])
+			} else {
+				err = handlers.HandleSolarized2(args[i+1], args[i+2])
 			}
 			if err != nil {
 				fmt.Printf("Error: %v", err.Error())
