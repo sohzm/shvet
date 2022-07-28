@@ -38,7 +38,7 @@ func Open(fileName string) (image.Image, error) {
 
 func Write(fileName string, rgba *image.RGBA) error {
 	// TODO decouple writing and encoding
-	f1, err := os.Create("temp_" + fileName)
+	f1, err := os.Create("temp_" + fileName + ".png")
 	if err != nil {
 		return err
 	}
