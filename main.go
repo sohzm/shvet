@@ -122,6 +122,17 @@ func main() {
 				fmt.Printf("Error: %v", err.Error())
 			}
 			return
+
+		case "ls", "list":
+			handlers.HandleList()
+			return
+
+		case "-h", "--help", "help":
+			handlers.HandleHelp()
+			return
+
 		}
 	}
+	fmt.Println("You're using Shvet wrong")
+	fmt.Println("for help see `shvet help`")
 }

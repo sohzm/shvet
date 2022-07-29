@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"shvet/converters"
 	"shvet/files"
 	"shvet/operations"
@@ -71,4 +72,20 @@ func HandleAvgValues(fileName string) error {
 	operations.AvgValues(&structRGBA)
 	err = files.Write(fileName, structRGBA.Rgba)
 	return nil
+}
+
+func HandleList() {
+	fmt.Println("Themes supported in Shvet:")
+	fmt.Println("   - dracula")
+	fmt.Println("   - gruvbox")
+	fmt.Println("   - nord")
+	fmt.Println("   - solarized")
+	fmt.Println("   - tokyonight")
+}
+
+func HandleHelp() {
+	fmt.Println("Shvet")
+	fmt.Println(" - A color scheme adjuster for your wallpapers")
+	fmt.Println("")
+	fmt.Println("more info at https://github.com/sz47/shvet")
 }

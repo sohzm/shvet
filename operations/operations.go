@@ -115,6 +115,7 @@ func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 			structRGBA.Rgba.Set(i, j, color.RGBA{finR, finG, finB, 255})
 		}
 	}
+
 }
 
 func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8, localTheme [][]int) {
