@@ -10,16 +10,16 @@ import (
 func Darken(intensity uint8, structRGBA *structs.StructRGBA) {
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
 			var r8, g8, b8 uint8
 			if intensity == 0 {
-				r8 = uint8(r) / 2
-				g8 = uint8(g) / 2
-				b8 = uint8(b) / 2
+				r8 = r / 2
+				g8 = g / 2
+				b8 = b / 2
 			} else {
-				r8 = uint8(r) / intensity
-				g8 = uint8(g) / intensity
-				b8 = uint8(b) / intensity
+				r8 = r / intensity
+				g8 = g / intensity
+				b8 = b / intensity
 			}
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
@@ -32,39 +32,38 @@ func Lighten(intensity uint8, structRGBA *structs.StructRGBA) {
 
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
 			var r8, g8, b8 uint8
 			if intensity == 0 {
-				r8 = uint8(r) * 2
-				if r8 < uint8(r) {
+				r8 = r * 2
+				if r8 < r {
 					r8 = 255
 				}
-				g8 = uint8(g) * 2
-				if g8 < uint8(g) {
+				g8 = g * 2
+				if g8 < g {
 					g8 = 255
 				}
-				b8 = uint8(b) * 2
-				if b8 < uint8(b) {
+				b8 = b * 2
+				if b8 < b {
 					b8 = 255
 				}
 			} else {
-				r8 = uint8(r) * intensity
-				if r8 < uint8(r) {
+				r8 = r * intensity
+				if r8 < r {
 					r8 = 255
 				}
-				g8 = uint8(g) * intensity
-				if g8 < uint8(g) {
+				g8 = g * intensity
+				if g8 < g {
 					g8 = 255
 				}
-				b8 = uint8(b) * intensity
-				if b8 < uint8(b) {
+				b8 = b * intensity
+				if b8 < b {
 					b8 = 255
 				}
 			}
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
 	}
-
 	return
 }
 
@@ -126,10 +125,10 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
-			rgbR += float64(uint8(r))
-			rgbG += float64(uint8(g))
-			rgbB += float64(uint8(b))
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+			rgbR += float64(r)
+			rgbG += float64(g)
+			rgbB += float64(b)
 		}
 	}
 
@@ -144,23 +143,23 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
-			r8 := controlOverflow(int64(uint8(r)), int64(diffR))
-			g8 := controlOverflow(int64(uint8(g)), int64(diffG))
-			b8 := controlOverflow(int64(uint8(b)), int64(diffB))
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+			r8 := controlOverflow(int64(r), int64(diffR))
+			g8 := controlOverflow(int64(g), int64(diffG))
+			b8 := controlOverflow(int64(b), int64(diffB))
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
 	}
 
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
 			mag := 9999999
 			var rM, gM, bM uint8
 			for _, val := range localTheme {
-				tempMag := abs(val[0] - int(uint8(r)))
-				tempMag += abs(val[1] - int(uint8(g)))
-				tempMag += abs(val[2] - int(uint8(b)))
+				tempMag := abs(val[0] - int(r))
+				tempMag += abs(val[1] - int(g))
+				tempMag += abs(val[2] - int(b))
 				if tempMag < mag {
 					mag = tempMag
 					rM = uint8(val[0])
@@ -170,13 +169,13 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 			}
 			var r8, g8, b8 uint8
 			if intensity == 0 {
-				r8 = controlOverflow(int64(uint8(r)), int64((int(rM)-int(uint8(r)))/50))
-				g8 = controlOverflow(int64(uint8(g)), int64((int(gM)-int(uint8(g)))/50))
-				b8 = controlOverflow(int64(uint8(b)), int64((int(bM)-int(uint8(b)))/50))
+				r8 = controlOverflow(int64(r), int64((int(rM)-int(r))/50))
+				g8 = controlOverflow(int64(g), int64((int(gM)-int(g))/50))
+				b8 = controlOverflow(int64(b), int64((int(bM)-int(b))/50))
 			} else {
-				r8 = controlOverflow(int64(uint8(r)), int64((int(rM)-int(uint8(r)))/int(intensity)))
-				g8 = controlOverflow(int64(uint8(g)), int64((int(gM)-int(uint8(g)))/int(intensity)))
-				b8 = controlOverflow(int64(uint8(b)), int64((int(bM)-int(uint8(b)))/int(intensity)))
+				r8 = controlOverflow(int64(r), int64((int(rM)-int(r))/int(intensity)))
+				g8 = controlOverflow(int64(g), int64((int(gM)-int(g))/int(intensity)))
+				b8 = controlOverflow(int64(b), int64((int(bM)-int(b))/int(intensity)))
 			}
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
@@ -192,10 +191,10 @@ func AvgValues(structRGBA *structs.StructRGBA) {
 	// calculate the avg HSV values of the image
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := structRGBA.Rgba.At(i, j).RGBA()
-			rgbR += float64(uint8(r))
-			rgbG += float64(uint8(g))
-			rgbB += float64(uint8(b))
+			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+			rgbR += float64(r)
+			rgbG += float64(g)
+			rgbB += float64(b)
 		}
 	}
 
