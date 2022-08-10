@@ -1,61 +1,25 @@
 package handlers
 
 import (
-	"fmt"
 	"shvet/converters"
 	"shvet/files"
 	"shvet/operations"
-	"strconv"
+	"shvet/structs"
 )
 
-func HandleDarken(intensity, fileName string) error {
-	img, err := files.Open(fileName)
-	if err != nil {
-		return err
+func Handle(args structs.Args) {
+	if args.Opt.Version {
+		handleVersion()
+		return
 	}
-
-	structRGBA, err := converters.ImageToRGBA(img)
-	if err != nil {
-		return err
+	if args.Opt.Help {
+		handleHelp()
+		return
 	}
-
-	intensityInt, err := strconv.Atoi(intensity)
-	if err != nil {
-		return err
+	if args.Opt.List {
+		handleList()
+		return
 	}
-
-	operations.Darken(uint8(intensityInt), &structRGBA)
-	err = files.Write(fileName, structRGBA.Rgba)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func HandleLighten(intensity, fileName string) error {
-	img, err := files.Open(fileName)
-	if err != nil {
-		return err
-	}
-
-	structRGBA, err := converters.ImageToRGBA(img)
-	if err != nil {
-		return err
-	}
-
-	intensityInt, err := strconv.Atoi(intensity)
-	if err != nil {
-		return err
-	}
-
-	operations.Lighten(uint8(intensityInt), &structRGBA)
-	err = files.Write(fileName, structRGBA.Rgba)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func HandleAvgValues(fileName string) error {
@@ -72,20 +36,4 @@ func HandleAvgValues(fileName string) error {
 	operations.AvgValues(&structRGBA)
 	err = files.Write(fileName, structRGBA.Rgba)
 	return nil
-}
-
-func HandleList() {
-	fmt.Println("Themes supported in Shvet:")
-	fmt.Println("   - dracula")
-	fmt.Println("   - gruvbox")
-	fmt.Println("   - nord")
-	fmt.Println("   - solarized")
-	fmt.Println("   - tokyonight")
-}
-
-func HandleHelp() {
-	fmt.Println("Shvet")
-	fmt.Println(" - A color scheme adjuster for your wallpapers")
-	fmt.Println("")
-	fmt.Println("more info at https://github.com/sz47/shvet")
 }

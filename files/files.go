@@ -12,7 +12,7 @@ import (
 )
 
 func Open(fileName string) (image.Image, error) {
-	// TODO decouple open and decode
+	// TODO make separate func for open and decode
 	file, err := os.Open(fileName)
 	if err != nil {
 		return nil, err
@@ -21,7 +21,7 @@ func Open(fileName string) (image.Image, error) {
 	buf, _ := ioutil.ReadFile(fileName)
 	kind, _ := filetype.Match(buf)
 	if kind == filetype.Unknown {
-		return nil, errors.New("Filetype Unknown")
+		return nil, errors.New("ea02: Filetype Unknown")
 	}
 
 	var img image.Image
@@ -37,7 +37,8 @@ func Open(fileName string) (image.Image, error) {
 }
 
 func Write(fileName string, rgba *image.RGBA) error {
-	// TODO decouple writing and encoding
+	// TODO make separate func for writing and encoding
+	// TODO add custom naming option
 	f1, err := os.Create("temp_" + fileName + ".png")
 	if err != nil {
 		return err

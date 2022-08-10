@@ -5,67 +5,8 @@ import (
 	"image/color"
 	"shvet/data"
 	"shvet/structs"
+	"sync"
 )
-
-func Darken(intensity uint8, structRGBA *structs.StructRGBA) {
-	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			var r8, g8, b8 uint8
-			if intensity == 0 {
-				r8 = r / 2
-				g8 = g / 2
-				b8 = b / 2
-			} else {
-				r8 = r / intensity
-				g8 = g / intensity
-				b8 = b / intensity
-			}
-			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
-		}
-	}
-
-	return
-}
-
-func Lighten(intensity uint8, structRGBA *structs.StructRGBA) {
-
-	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			var r8, g8, b8 uint8
-			if intensity == 0 {
-				r8 = r * 2
-				if r8 < r {
-					r8 = 255
-				}
-				g8 = g * 2
-				if g8 < g {
-					g8 = 255
-				}
-				b8 = b * 2
-				if b8 < b {
-					b8 = 255
-				}
-			} else {
-				r8 = r * intensity
-				if r8 < r {
-					r8 = 255
-				}
-				g8 = g * intensity
-				if g8 < g {
-					g8 = 255
-				}
-				b8 = b * intensity
-				if b8 < b {
-					b8 = 255
-				}
-			}
-			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
-		}
-	}
-	return
-}
 
 func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 
@@ -76,20 +17,28 @@ func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 		extremes[i] = [2]int{0, 0}
 	}
 
+	var wg sync.WaitGroup
+
 	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			for k, val := range data.ImpPoints {
-				tr, tg, tb, _ := toUint8(structRGBA.Rgba.At(extremes[k][0], extremes[k][1]).RGBA())
-				mag := (int(r)-int(val[0]))*(int(r)-int(val[0])) + (int(g)-int(val[1]))*(int(g)-int(val[1])) + (int(b)-int(val[2]))*(int(b)-int(val[2]))
-				tmag := (int(tr)-int(val[0]))*(int(tr)-int(val[0])) + (int(tg)-int(val[1]))*(int(tg)-int(val[1])) + (int(tb)-int(val[2]))*(int(tb)-int(val[2]))
-				if mag < tmag {
-					extremes[k][0] = i
-					extremes[k][1] = j
+		wg.Add(1)
+		go func(i int) {
+			for j := 0; j < structRGBA.MaxY; j++ {
+				r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+				for k, val := range data.ImpPoints {
+					tr, tg, tb, _ := toUint8(structRGBA.Rgba.At(extremes[k][0], extremes[k][1]).RGBA())
+					magnitude := mag(r, g, b, val[0], val[1], val[2])
+					tempMagnitude := mag(tr, tg, tb, val[0], val[1], val[2])
+					if magnitude < tempMagnitude {
+						extremes[k][0] = i
+						extremes[k][1] = j
+					}
 				}
 			}
-		}
+			wg.Done()
+		}(i)
 	}
+
+	wg.Wait()
 
 	var exValues = [8][3]uint8{}
 	for i, val := range extremes {
@@ -99,39 +48,52 @@ func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 	}
 
 	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			var relR, relG, relB float64
-			var finR, finG, finB uint8
-			//diffWhite := (exValues[6][0] - r)*(exValues[6][0] - r) + (exValues[6][1] - g)*(exValues[6][1] - g) + (exValues[6][2] - b)*(exValues[6][2] - b)
-			//diffBlack := (exValues[7][0] - r)*(exValues[7][0] - r) + (exValues[7][1] - g)*(exValues[7][1] - g) + (exValues[7][2] - b)*(exValues[7][2] - b)
-			relR = float64((r - exValues[7][0])) / float64((exValues[6][0] - exValues[7][0]))
-			relG = float64((g - exValues[7][1])) / float64((exValues[6][1] - exValues[7][1]))
-			relB = float64((b - exValues[7][2])) / float64((exValues[6][2] - exValues[7][2]))
-			finR = controlOverflow(int64(uint8(((float64(localTheme[6][0] - localTheme[7][0])) * relR))), int64(localTheme[7][0]))
-			finG = controlOverflow(int64(uint8(((float64(localTheme[6][1] - localTheme[7][1])) * relG))), int64(localTheme[7][1]))
-			finB = controlOverflow(int64(uint8(((float64(localTheme[6][2] - localTheme[7][2])) * relB))), int64(localTheme[7][2]))
-			structRGBA.Rgba.Set(i, j, color.RGBA{finR, finG, finB, 255})
-		}
+		wg.Add(1)
+		go func(i int) {
+			for j := 0; j < structRGBA.MaxY; j++ {
+				r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+				var relR, relG, relB float64
+				var finR, finG, finB uint8
+				//diffWhite := (exValues[6][0] - r)*(exValues[6][0] - r) + (exValues[6][1] - g)*(exValues[6][1] - g) + (exValues[6][2] - b)*(exValues[6][2] - b)
+				//diffBlack := (exValues[7][0] - r)*(exValues[7][0] - r) + (exValues[7][1] - g)*(exValues[7][1] - g) + (exValues[7][2] - b)*(exValues[7][2] - b)
+				relR = float64((r - exValues[7][0])) / float64((exValues[6][0] - exValues[7][0]))
+				relG = float64((g - exValues[7][1])) / float64((exValues[6][1] - exValues[7][1]))
+				relB = float64((b - exValues[7][2])) / float64((exValues[6][2] - exValues[7][2]))
+				finR = controlOverflow(int64(uint8(((float64(localTheme[6][0] - localTheme[7][0])) * relR))), int64(localTheme[7][0]))
+				finG = controlOverflow(int64(uint8(((float64(localTheme[6][1] - localTheme[7][1])) * relG))), int64(localTheme[7][1]))
+				finB = controlOverflow(int64(uint8(((float64(localTheme[6][2] - localTheme[7][2])) * relB))), int64(localTheme[7][2]))
+				structRGBA.Rgba.Set(i, j, color.RGBA{finR, finG, finB, 255})
+			}
+			wg.Done()
+		}(i)
 	}
-
+	wg.Wait()
+	return
 }
 
 func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8, localTheme [][]int) {
 
+	// hue shift
 	rgbR := float64(0)
 	rgbG := float64(0)
 	rgbB := float64(0)
 
+	var wg sync.WaitGroup
+
 	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			rgbR += float64(r)
-			rgbG += float64(g)
-			rgbB += float64(b)
-		}
+		wg.Add(1)
+		go func(i int) {
+			for j := 0; j < structRGBA.MaxY; j++ {
+				r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+				rgbR += float64(r)
+				rgbG += float64(g)
+				rgbB += float64(b)
+			}
+			wg.Done()
+		}(i)
 	}
 
+	wg.Wait()
 	values := structRGBA.MaxX * structRGBA.MaxY
 	rgbR /= float64(values)
 	rgbG /= float64(values)
@@ -142,15 +104,26 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 	diffB := int8(rgbValues[2]) - int8(uint8(rgbB))
 
 	for i := 0; i < structRGBA.MaxX; i++ {
-		for j := 0; j < structRGBA.MaxY; j++ {
-			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
-			r8 := controlOverflow(int64(r), int64(diffR))
-			g8 := controlOverflow(int64(g), int64(diffG))
-			b8 := controlOverflow(int64(b), int64(diffB))
-			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
-		}
+		wg.Add(1)
+		go func(i int) {
+			for j := 0; j < structRGBA.MaxY; j++ {
+				r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
+				r8 := controlOverflow(int64(r), int64(diffR))
+				g8 := controlOverflow(int64(g), int64(diffG))
+				b8 := controlOverflow(int64(b), int64(diffB))
+				structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
+			}
+			wg.Done()
+		}(i)
 	}
 
+	wg.Wait()
+	return
+}
+
+func Engine3(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8, localTheme [][]int) {
+
+	// match matching colors
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
 			r, g, b, _ := toUint8(structRGBA.Rgba.At(i, j).RGBA())
@@ -169,13 +142,13 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 			}
 			var r8, g8, b8 uint8
 			if intensity == 0 {
-				r8 = controlOverflow(int64(r), int64((int(rM)-int(r))/50))
-				g8 = controlOverflow(int64(g), int64((int(gM)-int(g))/50))
-				b8 = controlOverflow(int64(b), int64((int(bM)-int(b))/50))
+				r8 = controlOverflow(int64(r), int64((float64(rM)-float64(r))/50))
+				g8 = controlOverflow(int64(g), int64((float64(gM)-float64(g))/50))
+				b8 = controlOverflow(int64(b), int64((float64(bM)-float64(b))/50))
 			} else {
-				r8 = controlOverflow(int64(r), int64((int(rM)-int(r))/int(intensity)))
-				g8 = controlOverflow(int64(g), int64((int(gM)-int(g))/int(intensity)))
-				b8 = controlOverflow(int64(b), int64((int(bM)-int(b))/int(intensity)))
+				r8 = controlOverflow(int64(r), int64((float64(rM)-float64(r))/float64(intensity)))
+				g8 = controlOverflow(int64(g), int64((float64(gM)-float64(g))/float64(intensity)))
+				b8 = controlOverflow(int64(b), int64((float64(bM)-float64(b))/float64(intensity)))
 			}
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
