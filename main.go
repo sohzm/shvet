@@ -3,26 +3,21 @@ package main
 import (
 	"fmt"
 	"os"
-	"shvet/operations"
+	"shvet/arguments"
+	"shvet/handlers"
 )
 
 func main() {
 	args := os.Args
+	parsedArgs, err := arguments.ParseArguments(args[1:])
 
-	for i, val := range args {
-		if val == "darken" {
-			err := operations.Darken(args[i+1])
-			if err != nil {
-				fmt.Printf("Error: %v", err.Error())
-			}
-			return
-		}
-		if val == "lighten" {
-			err := operations.Lighten(args[i+1])
-			if err != nil {
-				fmt.Printf("Error: %v", err.Error())
-			}
-			return
-		}
+	if err != nil {
+		fmt.Println("Error:", err.Error())
+		fmt.Println()
+		fmt.Println("You're using Shvet wrong,")
+		fmt.Println("for help see `shvet help`")
+	} else {
+		handlers.Handle(parsedArgs)
+		fmt.Println(parsedArgs)
 	}
 }

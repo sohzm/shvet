@@ -12,9 +12,8 @@ func ImageToRGBA(img image.Image) (structs.StructRGBA, error) {
 
 	rgba, ok := img.(*image.RGBA)
 	if !ok {
-		b := img.Bounds()
-		rgba = image.NewRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
-		draw.Draw(rgba, rgba.Bounds(), img, b.Min, draw.Src)
+		rgba = image.NewRGBA(image.Rect(0, 0, bounds.Dx(), bounds.Dy()))
+		draw.Draw(rgba, rgba.Bounds(), img, bounds.Min, draw.Src)
 	}
 
 	return structs.StructRGBA{
