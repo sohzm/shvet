@@ -18,6 +18,5 @@ func main() {
 		fmt.Println("for help see `shvet help`")
 	} else {
 		handlers.Handle(parsedArgs)
-		fmt.Println(parsedArgs)
 	}
 }
