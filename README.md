@@ -33,17 +33,19 @@ GOOS=linux CGO_ENABLED=0 go build -o shvet main.go     # replace linux with your
 
 ## Usage
 
-There are two different ways a photo can be themed. You should try both and decide the better one. In some cases, first method will be better, in others the latter one.
-1. This will try to replace the color space of the image with the one from theme.
+Note: The time can vary vastly upon the resolution of image and flags provided. Also currently time optimization isn't the focus, rather the output image is prioritized, will focus on optimizations once we achive 'good' results, but contributions are always welcomed :)
 
 ```
         $ shvet <theme> path/to/image.png
 example $ shvet gruvbox ~/Wallpapers/linux.png
 ```
-2. This will try to change the average colors of the image to the one matching with the theme. Also you can use an optional parameter intensity, if intensity is 1 the image will only contain the colors from theme itself. You should generally check by putting the intensities 0, 1, 2, 10, 25 and come to conclusion which one fits your need better.
+
+You can also force color replacement in image which will result in a image as shown in the image at the top of README
 ```
-        $ shvet <theme>2 <intensity number (optional)> path/to/image.png
-example $ shvet gruvbox2 1 ~/Wallpapers/linux.png
+        $ shvet force <theme> path/to/image.png
+example $ shvet force gruvbox ~/Wallpapers/linux.png
 ```
 
 For list of themes supported do `shvet list`
+
+For help: `shvet help`

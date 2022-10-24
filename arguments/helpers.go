@@ -5,18 +5,15 @@ import (
 )
 
 var argsMap = map[string]string{
-	"-e":          "engine",
-	"--engine":    "engine",
-	"engine":      "engine",
+	"-c":          "customize",
+	"--customize": "customize",
+	"customize":   "customize",
 	"-f":          "force",
 	"--force":     "force",
 	"force":       "force",
 	"-h":          "help",
 	"--help":      "help",
 	"help":        "help",
-	"-i":          "intensity",
-	"--intensity": "intensity",
-	"intensity":   "intensity",
 	"-l":          "list",
 	"--list":      "list",
 	"list":        "list",
@@ -39,14 +36,6 @@ var argsMap = map[string]string{
 	"--solarized":  "solarized",
 	"tokyonight":   "tokyonight",
 	"--tokyonight": "tokyonight",
-}
-
-var themesAccepted = map[string]int8{
-	"nord":       1,
-	"gruvbox":    1,
-	"tokyonight": 1,
-	"dracula":    1,
-	"solarized":  1,
 }
 
 var optionsAccepted = map[string]int8{
