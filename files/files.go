@@ -1,18 +1,21 @@
 package files
 
 import (
+	"fmt"
 	"os"
 
 	"errors"
-	"github.com/h2non/filetype"
 	"image"
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
+
+	"github.com/h2non/filetype"
 )
 
 func Open(fileName string) (image.Image, error) {
 	// TODO make separate func for open and decode
+	// TODO handle errors
 	file, err := os.Open(fileName)
 	if err != nil {
 		return nil, err
@@ -39,11 +42,14 @@ func Open(fileName string) (image.Image, error) {
 func Write(fileName string, rgba *image.RGBA) error {
 	// TODO make separate func for writing and encoding
 	// TODO add custom naming option
-	f1, err := os.Create("temp_" + fileName + ".png")
+	// TODO handle errors
+	writeFileName := "temp_" + fileName + ".png"
+	f1, err := os.Create(writeFileName)
 	if err != nil {
 		return err
 	}
-	png.Encode(f1, rgba)
 
+	png.Encode(f1, rgba)
+	fmt.Println("File saved to", writeFileName)
 	return nil
 }

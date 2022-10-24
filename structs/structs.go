@@ -8,12 +8,15 @@ type StructRGBA struct {
 }
 
 type Args struct {
-	EngineArr []Intensities
-	Verbose   bool
-	Force     bool
-	Opt       Opt
-	Input     string
-	Output    string
+	Verbose    bool
+	Force      bool
+	Theme      string
+	Input      string
+	Output     string
+	OptionBool bool
+	Opt        Opt
+	Customize  bool
+	EngineArr  []Intensities
 }
 
 type Opt struct {

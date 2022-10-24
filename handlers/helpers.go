@@ -2,6 +2,9 @@ package handlers
 
 import (
 	"fmt"
+	"shvet/converters"
+	"shvet/files"
+	"shvet/operations"
 )
 
 func handleList() {
@@ -22,4 +25,20 @@ func handleHelp() {
 
 func handleVersion() {
 	fmt.Println("Shvet, version 0.7")
+}
+
+func handleAvgValues(fileName string) error {
+	img, err := files.Open(fileName)
+	if err != nil {
+		return err
+	}
+
+	structRGBA, err := converters.ImageToRGBA(img)
+	if err != nil {
+		return err
+	}
+
+	operations.AvgValues(&structRGBA)
+	err = files.Write(fileName, structRGBA.Rgba)
+	return nil
 }
