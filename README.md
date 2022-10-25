@@ -9,7 +9,7 @@ An application for changing HSV values of images.
 + gruvbox
 + nord
 + solarized
-+ tokyonight
++ tokyonight 
 
 NOTE: if the theme you like isn't shown here. Adding a theme to Shvet is really eazy, for more info [see here](https://example.com).
 

@@ -1,2 +1,4 @@
 bugs
 todo
+*.test
+*.prof

@@ -8,8 +8,12 @@ import (
 	"sync"
 )
 
-func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
+// TODO make all engine functions take same data.Data struct
+// itll make it eazy using it
+// something like:    
+// Function (structRGBA *structs.structRGBA, data data.Data, args structs.Args)
 
+func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 	// rgb cube approach
 	var extremes = [8][2]int{}
 	// is there a better way to do this?
@@ -122,7 +126,6 @@ func Engine2(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 }
 
 func Engine3(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8, localTheme [][]int) {
-
 	// match matching colors
 	for i := 0; i < structRGBA.MaxX; i++ {
 		for j := 0; j < structRGBA.MaxY; j++ {
@@ -155,6 +158,13 @@ func Engine3(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 	}
 	return
 }
+
+func Engine4(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
+	// rgb cube approach
+	// better ?????
+	return
+}
+
 
 func AvgValues(structRGBA *structs.StructRGBA) {
 
