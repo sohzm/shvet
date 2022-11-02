@@ -1,3 +1,5 @@
+NOTE: this README is currently incomplete
+
 ![Shvet](assets/name.png)
 background image source [deviantart/leikoi](https://www.deviantart.com/leikoi/art/The-Neon-Shallows-823330548)
 
