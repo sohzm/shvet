@@ -3,22 +3,27 @@ package handlers
 import (
 	"fmt"
 	"shvet/converters"
+	"shvet/data"
 	"shvet/files"
 	"shvet/operations"
 )
 
 func handleList() {
 	fmt.Println("Themes supported in Shvet:")
-	fmt.Println("   - dracula")
-	fmt.Println("   - gruvbox")
-	fmt.Println("   - nord")
-	fmt.Println("   - solarized")
-	fmt.Println("   - tokyonight")
+	for key := range data.DataMap {
+		fmt.Println("   >", key)
+	}
 }
 
 func handleHelp() {
 	fmt.Println("Shvet")
-	fmt.Println(" - A color scheme adjuster for your wallpapers")
+	fmt.Println(" > A color scheme adjuster for your wallpapers")
+	fmt.Println("")
+	fmt.Println("OPTIONS")
+	fmt.Println("")
+	fmt.Println("list           get the list of supported themes")
+	fmt.Println("help           get help")
+	fmt.Println("version        get version info")
 	fmt.Println("")
 	fmt.Println("more info at https://github.com/sz47/shvet")
 }

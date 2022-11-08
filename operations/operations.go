@@ -10,7 +10,7 @@ import (
 
 // TODO make all engine functions take same data.Data struct
 // itll make it eazy using it
-// something like:    
+// something like:
 // Function (structRGBA *structs.structRGBA, data data.Data, args structs.Args)
 
 func Engine(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
@@ -164,7 +164,6 @@ func Engine4(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
 	// better ?????
 	return
 }
-
 
 func AvgValues(structRGBA *structs.StructRGBA) {
 

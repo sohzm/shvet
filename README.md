@@ -35,7 +35,7 @@ GOOS=linux CGO_ENABLED=0 go build -o shvet main.go     # replace linux with your
 
 ## Usage
 
-Note: The time can vary vastly upon the resolution of image and flags provided. Also currently time optimization isn't the focus, rather the output image is prioritized, will focus on optimizations once we achive 'good' results, but contributions are always welcomed :)
+Note: The time can vary vastly upon the resolution of image and flags provided. Also currently time optimization isn't the focus, rather the output image is prioritized, will focus on optimizations once we achiee 'good' results, but contributions are always welcomed :)
 
 ```
         $ shvet <theme> path/to/image.png

@@ -51,7 +51,6 @@ func handleTheme(args structs.Args) error {
 	return nil
 }
 
-
 // TODO see if this is needed
 //func handleTheme2(args structs.Args) error {
 //	img, err := files.Open(args.Input)
