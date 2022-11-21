@@ -3,8 +3,8 @@ package arguments
 import (
 	"errors"
 	"os"
-	"shvet/data"
-	"shvet/structs"
+	"github.com/sz47/shvet/data"
+	"github.com/sz47/shvet/structs"
 )
 
 func ParseArguments(argsArr []string) (argsStruct structs.Args, err error) {

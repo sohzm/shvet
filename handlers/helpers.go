@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"fmt"
-	"shvet/converters"
-	"shvet/data"
-	"shvet/files"
-	"shvet/operations"
+	"github.com/sz47/shvet/converters"
+	"github.com/sz47/shvet/data"
+	"github.com/sz47/shvet/files"
+	"github.com/sz47/shvet/operations"
 )
 
 func handleList() {

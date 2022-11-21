@@ -3,8 +3,8 @@ package operations
 import (
 	"fmt"
 	"image/color"
-	"shvet/data"
-	"shvet/structs"
+	"github.com/sz47/shvet/data"
+	"github.com/sz47/shvet/structs"
 	"sync"
 )
 
