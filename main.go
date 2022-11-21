@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"shvet/arguments"
-	"shvet/handlers"
+	"github.com/sz47/shvet/arguments"
+	"github.com/sz47/shvet/handlers"
 )
 
 func main() {

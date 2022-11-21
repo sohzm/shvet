@@ -1,0 +1,24 @@
+{
+  "configurations": {
+    "run": {
+      "adapter": "delve",
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "protocol": "auto",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "program": "${workspaceRoot}/main.go",
+        "args": ["gruvbox", "best.jpg", "force"],
+        "dlvFlags": ["--check-go-version=false"],
+        "cwd": "${workspaceRoot}",
+        "mode": "debug"
+      }
+    }
+  }
+}

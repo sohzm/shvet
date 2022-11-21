@@ -1,4 +1,4 @@
-module shvet
+module github.com/sz47/shvet
 
 go 1.18
 

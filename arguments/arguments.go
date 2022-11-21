@@ -3,8 +3,8 @@ package arguments
 import (
 	"errors"
 	"os"
-	"shvet/structs"
-	"shvet/data"
+	"github.com/sz47/shvet/data"
+	"github.com/sz47/shvet/structs"
 )
 
 func ParseArguments(argsArr []string) (argsStruct structs.Args, err error) {
@@ -56,10 +56,10 @@ func ParseArguments(argsArr []string) (argsStruct structs.Args, err error) {
 	}
 
 	if argsStruct.Theme == "" {
-		return argsStruct, errors.New("74b5: Invalid Argument")
+		return argsStruct, errors.New("74b5: Oops, you forgot theme, \nor maybe you spelled it wrong?\nYou can use `shvet list` for listing theme names")
 	}
 	if argsStruct.Input == "" {
-		return argsStruct, errors.New("932d: Invalid Argument")
+		return argsStruct, errors.New("932d: Oops, you forgot input file, \nor maybe you spelled it wrong?")
 	}
 	return
 }

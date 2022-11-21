@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"shvet/converters"
-	"shvet/data"
-	"shvet/files"
-	"shvet/operations"
-	"shvet/structs"
+	"github.com/sz47/shvet/converters"
+	"github.com/sz47/shvet/data"
+	"github.com/sz47/shvet/files"
+	"github.com/sz47/shvet/operations"
+	"github.com/sz47/shvet/structs"
 )
 
 func Handle(args structs.Args) error {
@@ -50,7 +50,6 @@ func handleTheme(args structs.Args) error {
 
 	return nil
 }
-
 
 // TODO see if this is needed
 //func handleTheme2(args structs.Args) error {

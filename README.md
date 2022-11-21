@@ -1,3 +1,5 @@
+NOTE: this README is currently incomplete
+
 ![Shvet](assets/name.png)
 background image source [deviantart/leikoi](https://www.deviantart.com/leikoi/art/The-Neon-Shallows-823330548)
 
@@ -9,7 +11,7 @@ An application for changing HSV values of images.
 + gruvbox
 + nord
 + solarized
-+ tokyonight
++ tokyonight 
 
 NOTE: if the theme you like isn't shown here. Adding a theme to Shvet is really eazy, for more info [see here](https://example.com).
 
@@ -33,7 +35,7 @@ GOOS=linux CGO_ENABLED=0 go build -o shvet main.go     # replace linux with your
 
 ## Usage
 
-Note: The time can vary vastly upon the resolution of image and flags provided. Also currently time optimization isn't the focus, rather the output image is prioritized, will focus on optimizations once we achive 'good' results, but contributions are always welcomed :)
+Note: The time can vary vastly upon the resolution of image and flags provided. Also currently time optimization isn't the focus, rather the output image is prioritized, will focus on optimizations once we achiee 'good' results, but contributions are always welcomed :)
 
 ```
         $ shvet <theme> path/to/image.png

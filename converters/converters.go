@@ -3,7 +3,7 @@ package converters
 import (
 	"image"
 	"image/draw"
-	"shvet/structs"
+	"github.com/sz47/shvet/structs"
 )
 
 func ImageToRGBA(img image.Image) (structs.StructRGBA, error) {
