@@ -7,7 +7,7 @@ NOTE: this README is currently incomplete
 <p align="center">
   An application for changing HSV values of images.
 </p>
-
+<br />
 ## Available Themes
 
 + dracula
