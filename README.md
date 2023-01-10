@@ -2,9 +2,11 @@ NOTE: this README is currently incomplete
 
 <p align="center">
   <img src="https://github.com/sz47/shvet/blob/main/assets/name.svg" align="center" alt="shvet banner"> 
-An application for changing HSV values of images.
 </p>
 
+<p align="center">
+  An application for changing HSV values of images.
+</p>
 
 ## Available Themes
 
