@@ -1,8 +1,10 @@
 NOTE: this README is currently incomplete
 
-![Shvet](assets/name.svg)
-
+<p align="center">
+  <img src="https://github.com/sz47/shvet/blob/main/assets/name.svg" align="center" alt="shvet banner"> 
 An application for changing HSV values of images.
+</p>
+
 
 ## Available Themes
 
