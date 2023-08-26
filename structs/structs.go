@@ -8,15 +8,15 @@ type StructRGBA struct {
 }
 
 type Args struct {
-	Verbose    bool
-	Force      bool
-	Theme      string
-	Input      string
-	Output     string
-	OptionBool bool
-	Opt        Opt
-	Customize  bool
-	EngineArr  []Intensities
+	Verbose   bool
+	Force     bool
+	Theme     string
+	Input     string
+	Output    string
+	BlendMode string
+	Opt       Opt
+	//Customize  bool
+	//EngineArr  []Intensities
 }
 
 type Opt struct {
@@ -30,6 +30,20 @@ type Intensities struct {
 	Intensity int
 }
 
-type Color struct {
+type Colorx struct {
+	RGB RGBx
+	HSV HSVx
+}
+
+type RGBx struct {
 	R, G, B uint8
+}
+
+type HSVx struct {
+	H uint
+	S uint8
+	V uint8
+}
+
+type Tone struct {
 }

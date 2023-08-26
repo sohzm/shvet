@@ -1,9 +1,9 @@
 package data
 
-type Data struct {
-	RGB    []uint8
-	Points [][]uint8
-	Colors [][]int
+type PalatteData struct {
+	AverageRGB   []uint8
+	SmallPalatte [][]uint8
+	LargePalatte [][]uint8
 }
 
 var ImpPoints = [][]uint8{
@@ -17,7 +17,7 @@ var ImpPoints = [][]uint8{
 	{0, 0, 0},       // black
 }
 
-var DataMap = map[string]Data{
+var DataMap = map[string]PalatteData{
 	"nord":       Nord,
 	"tokyonight": Tokyonight,
 	"solarized":  Solarized,

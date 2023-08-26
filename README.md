@@ -1,6 +1,6 @@
 NOTE: this README is currently incomplete
 
-![Shvet](assets/name.png)
+![Shvet](assets/name.svg)
 
 An application for changing HSV values of images.
 

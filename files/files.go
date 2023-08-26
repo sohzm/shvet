@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"errors"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -24,7 +23,7 @@ func Open(fileName string) (image.Image, error) {
 	buf, _ := ioutil.ReadFile(fileName)
 	kind, _ := filetype.Match(buf)
 	if kind == filetype.Unknown {
-		return nil, errors.New("ea02: Filetype Unknown")
+		return nil, fmt.Errorf("ea02: Filetype Unknown")
 	}
 
 	var img image.Image

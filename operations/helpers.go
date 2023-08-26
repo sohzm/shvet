@@ -40,3 +40,17 @@ func mag(r, g, b, rSmol, gSmol, bSmol uint8) int {
 
 	return tempR + tempG + tempB
 }
+
+/*
+ * Return the magnitude
+ */
+func mag2(r, g, b, rSmol, gSmol, bSmol uint8) int {
+	tempR := (float64(r) - float64(rSmol))*0.3	
+	tempG := (float64(g) - float64(gSmol))*0.59
+	tempB := (float64(b) - float64(bSmol))*0.11
+	tempR *= tempR
+	tempG *= tempG
+	tempB *= tempB
+
+	return int(tempR + tempG + tempB)
+}

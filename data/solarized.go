@@ -1,8 +1,8 @@
 package data
 
-var Solarized Data = Data{
-	RGB: []uint8{2, 43, 55},
-	Points: [][]uint8{
+var Solarized PalatteData = PalatteData{
+	AverageRGB: []uint8{2, 43, 55},
+	SmallPalatte: [][]uint8{
 		{220, 50, 47},
 		{181, 137, 0},
 		{133, 153, 0},
@@ -12,7 +12,7 @@ var Solarized Data = Data{
 		{238, 232, 213},
 		{7, 54, 66},
 	},
-	Colors: [][]int{
+	LargePalatte: [][]uint8{
 		{0, 43, 54},
 		{131, 148, 150},
 		{220, 50, 47},

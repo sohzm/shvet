@@ -1,8 +1,8 @@
 package data
 
-var Gruvbox Data = Data{
-	RGB: []uint8{55, 51, 47},
-	Points: [][]uint8{
+var Gruvbox PalatteData = PalatteData{
+	AverageRGB: []uint8{55, 51, 47},
+	SmallPalatte: [][]uint8{
 		{204, 36, 29},
 		{215, 153, 33},
 		{152, 151, 26},
@@ -12,7 +12,7 @@ var Gruvbox Data = Data{
 		{237, 219, 178},
 		{40, 40, 40},
 	},
-	Colors: [][]int{
+	LargePalatte: [][]uint8{
 		{40, 40, 40},
 		{50, 48, 47},
 		{40, 40, 40},

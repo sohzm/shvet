@@ -32,6 +32,7 @@ func handleVersion() {
 	fmt.Println("Shvet, version 0.7")
 }
 
+// TODO remove this function, this is only meant to be kept during development
 func handleAvgValues(fileName string) error {
 	img, err := files.Open(fileName)
 	if err != nil {

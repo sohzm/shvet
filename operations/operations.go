@@ -2,9 +2,9 @@ package operations
 
 import (
 	"fmt"
-	"image/color"
 	"github.com/sz47/shvet/data"
 	"github.com/sz47/shvet/structs"
+	"image/color"
 	"sync"
 )
 
@@ -156,12 +156,6 @@ func Engine3(intensity uint8, structRGBA *structs.StructRGBA, rgbValues []uint8,
 			structRGBA.Rgba.Set(i, j, color.RGBA{r8, g8, b8, 255})
 		}
 	}
-	return
-}
-
-func Engine4(structRGBA *structs.StructRGBA, localTheme [][]uint8) {
-	// rgb cube approach
-	// better ?????
 	return
 }
 

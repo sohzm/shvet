@@ -1,8 +1,8 @@
 package data
 
-var Nord Data = Data{
-	RGB: []uint8{54, 61, 75},
-	Points: [][]uint8{
+var Nord PalatteData = PalatteData{
+	AverageRGB: []uint8{54, 61, 75},
+	SmallPalatte: [][]uint8{
 		{191, 97, 106},
 		{235, 203, 139},
 		{163, 190, 140},
@@ -12,7 +12,7 @@ var Nord Data = Data{
 		{229, 233, 240},
 		{59, 66, 82},
 	},
-	Colors: [][]int{
+	LargePalatte: [][]uint8{
 		{46, 52, 64},
 		{59, 66, 82},
 		{55, 62, 77},

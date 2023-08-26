@@ -1,8 +1,8 @@
 package data
 
-var Tokyonight Data = Data{
-	RGB: []uint8{38, 51, 110},
-	Points: [][]uint8{
+var Tokyonight PalatteData = PalatteData{
+	AverageRGB: []uint8{38, 51, 110},
+	SmallPalatte: [][]uint8{
 		{255, 70, 94},
 		{224, 175, 104},
 		{78, 254, 106},
@@ -12,7 +12,7 @@ var Tokyonight Data = Data{
 		{120, 124, 153},
 		{50, 52, 74},
 	},
-	Colors: [][]int{
+	LargePalatte: [][]uint8{
 		{26, 27, 38},
 		{169, 177, 214},
 		{255, 70, 94},

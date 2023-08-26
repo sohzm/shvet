@@ -2,27 +2,25 @@ package arguments
 
 import (
 	"errors"
-	"os"
 	"github.com/sz47/shvet/data"
 	"github.com/sz47/shvet/structs"
+	"os"
 )
 
 func ParseArguments(argsArr []string) (argsStruct structs.Args, err error) {
+	argsStruct.BlendMode = "soft-light"
 	for _, val := range argsArr {
 		if parse(val) == "help" {
-			argsStruct.OptionBool = true
 			argsStruct.Opt.Help = true
 			return
 		}
 
 		if parse(val) == "version" {
-			argsStruct.OptionBool = true
 			argsStruct.Opt.Version = true
 			return
 		}
 
 		if parse(val) == "list" {
-			argsStruct.OptionBool = true
 			argsStruct.Opt.List = true
 			return
 		}
@@ -50,16 +48,22 @@ func ParseArguments(argsArr []string) (argsStruct structs.Args, err error) {
 		}
 
 		if parse(val) == "customize" {
-			argsStruct.Customize = true
-			return argsStruct, errors.New("39ad: Customize isn't added, yet. Contributions are welcome at https://github.com/sz47/shvet")
+			//argsStruct.Customize = true
+			return argsStruct, errors.New("39ad: Customize isn't added, yet. " +
+				"Contributions are welcome at https://github.com/sz47/shvet")
 		}
 	}
 
 	if argsStruct.Theme == "" {
-		return argsStruct, errors.New("74b5: Oops, you forgot theme, \nor maybe you spelled it wrong?\nYou can use `shvet list` for listing theme names")
+		return argsStruct, errors.New("74b5: Oops, you forgot theme, " +
+			"\nor maybe you spelled it wrong?" +
+			"\nYou can use `shvet list` for listing theme names")
 	}
+
 	if argsStruct.Input == "" {
-		return argsStruct, errors.New("932d: Oops, you forgot input file, \nor maybe you spelled it wrong?")
+		return argsStruct, errors.New("932d: Oops, you forgot input file, " +
+			"\nor maybe you spelled it wrong?")
 	}
+
 	return
 }

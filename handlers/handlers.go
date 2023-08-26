@@ -2,33 +2,26 @@ package handlers
 
 import (
 	"github.com/sz47/shvet/converters"
-	"github.com/sz47/shvet/data"
 	"github.com/sz47/shvet/files"
 	"github.com/sz47/shvet/operations"
 	"github.com/sz47/shvet/structs"
 )
 
-func Handle(args structs.Args) error {
-	if args.OptionBool {
-		if args.Opt.Version {
-			handleVersion()
-			return nil
-		}
-		if args.Opt.Help {
-			handleHelp()
-			return nil
-		}
-		if args.Opt.List {
-			handleList()
-			return nil
-		}
+func Handle(parsedArgs structs.Args) error {
+
+	switch {
+	case parsedArgs.Opt.Version:
+		handleVersion()
+		return nil
+	case parsedArgs.Opt.Help:
+		handleHelp()
+		return nil
+	case parsedArgs.Opt.List:
+		handleList()
+		return nil
 	}
 
-	return handleTheme(args)
-}
-
-func handleTheme(args structs.Args) error {
-	img, err := files.Open(args.Input)
+	img, err := files.Open(parsedArgs.Input)
 	if err != nil {
 		return err
 	}
@@ -38,12 +31,12 @@ func handleTheme(args structs.Args) error {
 		return err
 	}
 
-	if args.Force {
-		operations.Engine3(1, &structRGBA, data.DataMap[args.Theme].RGB, data.DataMap[args.Theme].Colors)
+	if parsedArgs.Force {
+		//operations.Engine3(1, &structRGBA, data.DataMap[args.Theme].SmallPalatte)
 	} else {
-		operations.Engine(&structRGBA, data.DataMap[args.Theme].Points)
+		operations.Engine4(&structRGBA, parsedArgs.Theme, parsedArgs.BlendMode)
 	}
-	err = files.Write(args.Input, structRGBA.Rgba)
+	err = files.Write(parsedArgs.Input, structRGBA.Rgba)
 	if err != nil {
 		return err
 	}

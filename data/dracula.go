@@ -1,8 +1,8 @@
 package data
 
-var Dracula Data = Data{
-	RGB: []uint8{49, 51, 65},
-	Points: [][]uint8{
+var Dracula PalatteData = PalatteData{
+	AverageRGB: []uint8{49, 51, 65},
+	SmallPalatte: [][]uint8{
 		{255, 85, 85},
 		{241, 250, 140},
 		{80, 250, 123},
@@ -12,7 +12,7 @@ var Dracula Data = Data{
 		{248, 248, 242},
 		{33, 34, 44},
 	},
-	Colors: [][]int{
+	LargePalatte: [][]uint8{
 		{40, 42, 54},
 		{248, 248, 242},
 		{33, 34, 44},
